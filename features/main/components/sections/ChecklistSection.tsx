@@ -1,35 +1,38 @@
 import SectionHead from "@/components/common/SectionHead";
-import { CHECKLIST } from "../../constants";
+import type { HomeDictionary } from "../../types";
+import { cn } from "@/lib/utils";
+import section from "@/styles/section.module.css";
+import text from "@/styles/text.module.css";
+import styles from "./ChecklistSection.module.css";
 
 interface ChecklistSectionProps {
+  t: HomeDictionary;
   idPrefix?: string;
 }
 
-const ChecklistSection = ({ idPrefix = "" }: ChecklistSectionProps) => (
+const ChecklistSection = ({ t, idPrefix = "" }: ChecklistSectionProps) => (
   <section
     aria-labelledby={`${idPrefix}checklist-title`}
-    className="w-full bg-page px-5 py-16 md:px-10 md:py-32 lg:px-20"
+    className={cn(section.section, section.divided, section.brand)}
   >
-    <div className="mx-auto flex max-w-[1280px] flex-col gap-12 md:gap-16">
+    <div className={section.inner}>
       <SectionHead
         headingId={`${idPrefix}checklist-title`}
-        eyebrow="04 — CHECKLIST"
-        title="Before you plant."
-        description="설치 전에 확인해 주세요."
+        {...t.checklistHead}
       />
-      <ul className="border-t-3 border-line-strong">
-        {CHECKLIST.map((item) => (
+      <ul className={styles.list}>
+        {t.checklist.map((item) => (
           <li
             key={item.title}
-            className="flex flex-col gap-2 border-b border-line-subtle py-6 md:flex-row md:items-center md:gap-8"
+            className={styles.item}
           >
-            <div className="flex items-center gap-4 md:w-[400px] md:shrink-0">
-              <span aria-hidden="true" className="size-5 shrink-0 bg-brand" />
-              <h3 className="font-serif text-heading-m font-semibold text-fg">
+            <div className={styles.head}>
+              <span aria-hidden="true" className={styles.mark} />
+              <h3 className={cn(text.headingM, styles.title)}>
                 {item.title}
               </h3>
             </div>
-            <p className="flex-1 pl-9 text-body-m text-fg-muted md:pl-0">
+            <p className={cn(text.bodyM, styles.description)}>
               {item.description}
             </p>
           </li>

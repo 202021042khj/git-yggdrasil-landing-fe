@@ -1,0 +1,55 @@
+/*
+ * 섹션 틀 (홈 · 다운로드 화면 공통): 바깥 여백 · 위 선 · 바탕색 · 안쪽 최대 폭.
+ * 쓰는 법: className={cn(section.section, section.surface, section.divided)} + 안쪽 <div className={section.inner}>
+ */
+.section {
+  width: 100%;
+  padding: 64px 20px;
+}
+@media (min-width: 768px) {
+  .section {
+    padding: 128px 40px;
+  }
+}
+@media (min-width: 1024px) {
+  .section {
+    padding-inline: 80px;
+  }
+}
+
+/* 위 3px 선 (섹션 사이마다, 모두 같은 진한 선). 잉크 띠 위는 종이색 — 잉크 바탕끼리 붙어도 선이 보이도록 */
+.divided {
+  border-top: 3px solid var(--border-strong);
+}
+.divided.ink {
+  border-top-color: var(--text-on-ink);
+}
+
+.page {
+  background: var(--bg-page);
+}
+.surface {
+  background: var(--bg-surface);
+}
+/* 옅은 세이지 들판 (브랜드 색이 넓게 깔리는 곳. 한 화면에 하나만) */
+.brand {
+  background: var(--brand-field);
+}
+.ink {
+  background: var(--bg-ink);
+  color: var(--text-on-ink);
+}
+
+/* 안쪽: 최대 1280 가운데, 제목과 내용 사이 48 (태블릿부터 64) */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+@media (min-width: 768px) {
+  .inner {
+    gap: 64px;
+  }
+}

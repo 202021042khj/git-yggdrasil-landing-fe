@@ -1,82 +1,73 @@
 import CtaButton from "@/components/common/CtaButton";
+import LanguageToggle from "@/components/common/LanguageToggle";
 import LogoLockup from "../shared/LogoLockup";
-import { HERO, MOBILE_ID_PREFIX, NAV_ITEMS } from "../../constants";
-import type { UseHomeLogicResult } from "../../hooks/useHomeLogic";
+import { DOWNLOAD_PATH, MOBILE_ID_PREFIX, NAV_TARGETS, navHref } from "../../constants";
+import type { ChromeDictionary } from "../../types";
+import type { UseMobileMenuResult } from "@/hooks/useMobileMenu";
+import { type Locale, localePath } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import text from "@/styles/text.module.css";
+import styles from "./MobileHeaderSection.module.css";
 
-type MobileHeaderSectionProps = Pick<
-  UseHomeLogicResult,
-  "isMenuOpen" | "toggleMenu" | "closeMenu"
->;
+interface MobileHeaderSectionProps extends UseMobileMenuResult {
+  lang: Locale;
+  chrome: ChromeDictionary;
+  /** 메뉴 앵커 앞에 붙일 주소. 홈은 "", 다른 화면(다운로드)은 "/en" 처럼 언어 홈 → "/en#m-features" */
+  linkBase?: string;
+}
 
 const MobileHeaderSection = ({
   isMenuOpen,
   toggleMenu,
   closeMenu,
+  lang,
+  chrome,
+  linkBase = "",
 }: MobileHeaderSectionProps) => (
-  <header className="sticky top-0 z-header w-full border-b-3 border-line-strong bg-page">
-    <div className="flex items-center gap-4 px-5 py-3">
-      <a
-        href={`#${MOBILE_ID_PREFIX}top`}
-        aria-label="Yggdrasil 처음으로"
-        onClick={closeMenu}
-      >
+  <header className={styles.header}>
+    <div className={styles.bar}>
+      <a href={`${linkBase}#${MOBILE_ID_PREFIX}top`} aria-label={chrome.homeLabel} onClick={closeMenu}>
         <LogoLockup size="sm" />
       </a>
-      <div className="flex-1" />
+      <div className={styles.spacer} />
       <button
         type="button"
         onClick={toggleMenu}
         aria-expanded={isMenuOpen}
         aria-controls={`${MOBILE_ID_PREFIX}menu`}
-        aria-label={isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
-        className="flex size-11 flex-col items-center justify-center gap-[5px] text-fg focus-visible:outline-3 focus-visible:outline-fg-brand"
+        aria-label={isMenuOpen ? chrome.menuClose : chrome.menuOpen}
+        className={styles.menuButton}
       >
-        <span
-          className={cn(
-            "h-[3px] w-6 bg-current transition-transform",
-            isMenuOpen && "translate-y-2 rotate-45",
-          )}
-        />
-        <span
-          className={cn(
-            "h-[3px] w-6 bg-current transition-opacity",
-            isMenuOpen && "opacity-0",
-          )}
-        />
-        <span
-          className={cn(
-            "h-[3px] w-6 bg-current transition-transform",
-            isMenuOpen && "-translate-y-2 -rotate-45",
-          )}
-        />
+        <span className={styles.line} />
+        <span className={styles.line} />
+        <span className={styles.line} />
       </button>
     </div>
     <nav
       id={`${MOBILE_ID_PREFIX}menu`}
-      aria-label="주요 메뉴"
+      aria-label={chrome.navLabel}
       hidden={!isMenuOpen}
-      className="h-[calc(100dvh-70px)] overflow-y-auto border-t-3 border-line-strong bg-page px-5 py-8"
+      className={styles.drawer}
     >
-      <ul className="flex flex-col">
-        {NAV_ITEMS.map((item) => (
-          <li key={item.target} className="border-b border-line-subtle">
+      <ul className={styles.links}>
+        {NAV_TARGETS.map((target) => (
+          <li key={target} className={styles.linkItem}>
             <a
-              href={`#${MOBILE_ID_PREFIX}${item.target}`}
+              href={navHref(target, { lang, linkBase, idPrefix: MOBILE_ID_PREFIX })}
               onClick={closeMenu}
-              className="block py-4 font-serif text-heading-m font-semibold text-fg"
+              className={cn(text.headingM, styles.link)}
             >
-              {item.label}
+              {chrome.nav[target]}
             </a>
           </li>
         ))}
       </ul>
-      <div className="mt-8 flex flex-col gap-3">
-        {/* TODO: 다운로드 · 로그인 기능 없음 — 더미 버튼 */}
-        <CtaButton className="justify-between">{HERO.primaryCta}</CtaButton>
-        <CtaButton variant="secondary" className="justify-between">
-          로그인
+      <div className={styles.actions}>
+        <CtaButton href={localePath(lang, DOWNLOAD_PATH)} onClick={closeMenu} className={styles.download}>
+          {chrome.download}
         </CtaButton>
+        {/* 예전 "로그인" 더미 버튼 자리: 두 언어를 나란히 (Figma Language dropdown · State=Segmented) */}
+        <LanguageToggle current={lang} label={chrome.languageLabel} />
       </div>
     </nav>
   </header>

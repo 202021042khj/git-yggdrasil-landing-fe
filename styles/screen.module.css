@@ -1,0 +1,35 @@
+/* 화면 뼈대 (홈 · 다운로드 공통): 데스크톱 / 모바일 트리를 768px 에서 CSS 로 가르고, 각 트리는 상단바 · 본문 · 푸터를 세로로 */
+.screen {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.desktop {
+  display: none;
+}
+.mobile {
+  display: flex;
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .desktop {
+    display: flex;
+    flex: 1;
+  }
+  .mobile {
+    display: none;
+  }
+}
+
+/* 한 트리: 상단바 · 본문 · 푸터를 세로로 */
+.page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+}

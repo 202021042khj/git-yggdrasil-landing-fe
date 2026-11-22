@@ -1,0 +1,51 @@
+/* 터미널 명령 한 줄 + 복사 버튼 */
+.chip {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  color: var(--text-on-ink);
+}
+/* 종이 바탕 위: 잉크 상자 */
+.ink {
+  background: var(--bg-ink);
+}
+/* 잉크 띠 위: 선 상자 */
+.line {
+  border: 3px solid color-mix(in srgb, var(--text-on-ink) 50%, transparent);
+}
+
+.command {
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+}
+
+.dim {
+  opacity: 0.6;
+}
+
+/* 주석은 단어 중간에서 끊기지 않게 다음 줄로 */
+.comment {
+  display: block;
+  word-break: keep-all;
+  opacity: 0.6;
+}
+
+.copy {
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, var(--text-on-ink) 50%, transparent);
+  padding-inline: 8px;
+  font-size: var(--type-label-m);
+  line-height: var(--type-label-m-line);
+  letter-spacing: var(--type-label-m-tracking);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.copy:hover {
+  background: var(--text-on-ink);
+  color: var(--bg-ink);
+}
+.copy:focus-visible {
+  outline: 3px solid var(--text-brand);
+}

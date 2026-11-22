@@ -1,0 +1,172 @@
+/* 히어로: 왼쪽 제목 · 버튼, 오른쪽 연필 나무, 아래 시연 영상 */
+.hero {
+  width: 100%;
+  background: var(--bg-page);
+}
+
+.stage {
+  position: relative;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: 48px 20px 64px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+}
+
+/* 글꼴은 text.title (섹션 제목과 같은 규칙). 화면의 첫 제목이라 크기만 한 단계 크게: 모바일 36 · 태블릿부터 72 */
+.title {
+  font-size: 36px;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--type-display-l);
+    line-height: 1.15;
+    letter-spacing: var(--type-display-l-tracking);
+  }
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tree {
+  width: 100%;
+}
+
+.rise {
+  width: 100%;
+}
+
+.window {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--family-code);
+  font-size: var(--type-code-m);
+  line-height: var(--type-code-m-line);
+  color: var(--text-secondary);
+}
+
+@media (min-width: 768px) {
+  .inner {
+    gap: 48px;
+    padding: 96px 40px 128px;
+  }
+  .text {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+  }
+  .copy {
+    /* 72px 제목이 두 줄에 들어가는 폭 */
+    max-width: 680px;
+    gap: 40px;
+  }
+  .tree {
+    flex: 1;
+    max-width: 680px;
+  }
+}
+@media (min-width: 1024px) {
+  .inner {
+    padding-inline: 80px;
+  }
+}
+
+/*
+ * 고정 스크롤 (hooks/useHeroPin.ts, 데스크톱 · 움직임 줄이기 아님): 무대가 상단바 아래 붙은 채 800px 동안
+ * 글이 사라지고(--hero-text 0 → 1) 영상 창이 가운데부터 넓어진다(--hero-reveal 0 → 1)
+ */
+.hero[data-pinned="true"] {
+  height: calc(100svh - var(--header-h) + 800px);
+}
+.hero[data-pinned="true"] .stage {
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100svh - var(--header-h));
+  overflow: hidden;
+}
+.hero[data-pinned="true"] .inner {
+  position: static;
+  padding: 0;
+}
+.hero[data-pinned="true"] .text {
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: 40px;
+  opacity: calc(1 - var(--hero-text, 0));
+  transform: translateY(calc(var(--hero-text, 0) * -32px));
+}
+.hero[data-text-gone] .text {
+  visibility: hidden;
+}
+.hero[data-pinned="true"] .rise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+/* 첫 그림(JS 전)에도 숨긴다 */
+.hero[data-pinned="true"]:not([style*="--hero-reveal"]) .rise,
+.hero[data-rise-hidden] .rise {
+  visibility: hidden;
+}
+/* 영상 창: 제자리에서 가운데 한 점부터 넓어진다 */
+.hero[data-pinned="true"] .window {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  width: min(1200px, calc(100% - 80px));
+  transform: translateX(-50%);
+  pointer-events: auto;
+  /* 가운데 한 점(위아래 · 양옆 50% 잘림)에서 시작해 영상 비율 그대로 자란다. 다 열리면 80px 더 (테두리까지 보이게) */
+  clip-path: inset(
+    calc((1 - var(--hero-reveal, 0)) * 50% - var(--hero-reveal, 0) * 80px)
+      calc((1 - var(--hero-reveal, 0)) * 50% - var(--hero-reveal, 0) * 80px)
+  );
+}
+/* 아래 150px 는 바탕으로 사라진다 */
+.hero[data-pinned="true"] .rise::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 150px;
+  background: linear-gradient(to bottom, transparent, var(--bg-page) 70%);
+}

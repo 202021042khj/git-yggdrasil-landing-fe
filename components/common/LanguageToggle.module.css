@@ -1,0 +1,35 @@
+/* 모바일 서랍의 언어 선택: 두 언어를 나란히 (Figma "Language dropdown" State=Segmented) */
+.group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 3px solid var(--border-strong);
+  background: var(--bg-page);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  font-family: var(--family-code);
+  font-size: var(--type-label-m);
+  line-height: var(--type-label-m-line);
+  letter-spacing: var(--type-label-m-tracking);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.option:hover {
+  background: var(--bg-brand);
+  color: var(--text-on-color);
+}
+.option:focus-visible {
+  outline: 3px solid var(--text-brand);
+  outline-offset: -3px;
+}
+
+/* 고른 언어는 잉크 */
+.option[aria-current="true"],
+.option[aria-current="true"]:hover {
+  background: var(--btn-ink-bg);
+  color: var(--btn-ink-fg);
+}

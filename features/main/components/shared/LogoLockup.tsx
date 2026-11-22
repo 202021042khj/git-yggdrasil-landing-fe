@@ -1,5 +1,6 @@
 import LogoMark from "./LogoMark";
 import { cn } from "@/lib/utils";
+import styles from "./LogoLockup.module.css";
 
 interface LogoLockupProps {
   size?: "md" | "sm";
@@ -7,20 +8,11 @@ interface LogoLockupProps {
 }
 
 const LogoLockup = ({ size = "md", className }: LogoLockupProps) => (
-  <span className={cn("flex items-center gap-2.5 text-fg", className)}>
-    <LogoMark className={size === "md" ? "size-10" : "size-8"} />
-    <span className="flex flex-col leading-none">
-      <span
-        className={cn(
-          "font-display italic tracking-[-0.015em]",
-          size === "md" ? "text-[20px]" : "text-[16px]",
-        )}
-      >
-        Yggdrasil
-      </span>
-      <span className="mt-0.5 font-code text-[6px] font-medium tracking-[0.14em] text-fg-brand">
-        FOR GIT
-      </span>
+  <span className={cn(styles.lockup, size === "sm" && styles.sm, className)}>
+    <LogoMark size={size === "md" ? 40 : 32} />
+    <span className={styles.words}>
+      <span className={styles.name}>Yggdrasil</span>
+      <span className={styles.tag}>FOR GIT</span>
     </span>
   </span>
 );

@@ -1,0 +1,36 @@
+# CI: 모든 브랜치의 push 와 PR 에서 lint · 타입 검사 · 프로덕션 빌드를 돌린다.
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+# 같은 브랜치에 새로 push 하면 앞서 돌던 실행은 취소한다
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint · 타입 · 빌드
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - name: 빌드
+        run: npm run build
+        env:
+          # 빌드 중 릴리스 노트 · 변경 기록을 GitHub API 로 받는다. 러너 IP 는 여럿이 함께 써서
+          # 토큰 없는 한도(시간당 60번)에 걸리기 쉬우니 기본 토큰을 쓴다 (공개 저장소 읽기만)
+          GITHUB_TOKEN: ${{ github.token }}
+          NEXT_TELEMETRY_DISABLED: "1"

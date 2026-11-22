@@ -46,11 +46,46 @@
 
 | 모션 | 참조 | 파라미터 | 움직임 줄이기 |
 |---|---|---|---|
-| 히어로 고정 | `useHomeHeroPin` · `useScrollPin` → `features/main/hooks/useHeroPin.ts` · `useScrollPin.ts` | 데스크톱 트리만. 무대가 상단바(95px) 아래 sticky, 거리 800px. 0→240 글 투명도 1→0, 위로 32px(linear). 120→760 영상 창 `clip-path` 위아래 34% · 양옆 38%에서 열림(smoothstep). 다 열리면 80px 더 열림. 창은 top 56, 폭 min(1200, 100%−80), 아래 150px는 바탕으로 페이드 | 고정 없음, 글 아래 영상 |
-| 시작 가이드 고정 | `useHomeStartPin` → `features/main/hooks/useStartGuidePin.ts` | 폭 1024↑ · 높이 720↑일 때. 붙은 뒤 440px마다 펼친 칸 01→04(총 1760px), 펼친 칸 flex-grow 2.6, `flex-grow 520ms ease-out`. 접힌 칸 설명 투명도 0.45 | 같은 폭 칸 |
+| 히어로 고정 | `useHomeHeroPin` · `useScrollPin` → `features/main/hooks/useHeroPin.ts` · `useScrollPin.ts` | 데스크톱 트리만. 무대가 상단바(95px) 아래 sticky, 거리 800px. 0→240 글 투명도 1→0, 위로 32px(linear). 120→760 영상 창 `clip-path` 가운데 한 점(50%)에서 열림(smoothstep). 다 열리면 80px 더 열림. 창은 top 56, 폭 min(1200, 100%−80), 아래 150px는 바탕으로 페이드 | 고정 없음, 글 아래 영상 |
 | 변경 기록 펼침 | `ChangeEntry` · `Collapse` → `components/common/Collapse.tsx` | 한 번에 하나만. `grid-template-rows 0fr→1fr` + 투명도, 펼침 200ms · 접힘 150ms ease-out. 화살표는 돌지 않고 모양만 바뀜(→ / ↓). `inert`, `aria-expanded` | 투명도만 150ms |
 | 누름 | `pressedStyle` · `pressTransition` → `.press` | `:active` scale 0.97, transform · 색 120ms ease-out. CTA 버튼 · 상단 메뉴 | scale 없음 |
 | 영상 자동재생 | `useHomeHeroVideo` | (기존 DemoVideo 그대로) | 자동재생 안 함 |
 
 참조에 없어서 옮기지 않은 것: 섹션 진입 페이드업이 없어서 `Reveal`을 지웠다. 상단바의 스크롤 반응(그림자 · 숨김)도 없다. 흐름 · 체크리스트 · 도움 띠 · 푸터에는 hover 색 말고 모션이 없다.
 참조와 다른 점: 비로그인 참조 영상은 올라오지 않고 제자리에서 창만 넓어진다. 이 동작을 그대로 따랐다(올라오는 rise 360px는 로그인 판 전용이라 넣지 않음). 참조의 "왜" 줄과 시작 칸은 스크린샷이지만 여기 시작 칸은 글 카드다. 그래서 흐려지는 대상이 사진이 아니라 설명이다. 영상 멈춤 버튼은 참조처럼 구석에 있지 않고, 기존 가운데 재생 버튼을 그대로 썼다.
+
+## 다운로드 화면 (/download, 2026-11-20)
+
+Figma "Landing · Download"(데스크톱 `40:18` · 모바일 `41:137`, 컴포넌트 `Download/FileRow` `41:368` · `Download/Step` `39:24`) 를 `features/download` 로 옮겼다.
+
+| 항목 | 결과 | 비고 |
+|---|---|---|
+| 기능 폴더 · Screen 한 번 훅 · CSS 토글 | Pass | `app/download/page.tsx` 는 `metadata` + `DownloadScreen` 만. 상단바 · 푸터는 `@/features/main` 공개 목록으로만 가져온다 |
+| 문구 위치 | Pass | 화면 낭독 이름 · 복사 버튼까지 `features/download/constants.ts` 에 (번역 준비) |
+| 자동 감지 | Pass | Electron(오프스크린) 에서 UA · Client Hints 를 바꿔 확인: Mac arm → Apple Silicon 추천, Mac x86 → Intel 추천, Client Hints 없는 Safari → WebGL 로 판별(모르면 두 파일 모두 추천 + 확인 방법), Windows → Windows 카드, Linux → Linux 카드(데스크톱은 두 칸 너비로 맨 위), iPhone → 강조 없음 + "컴퓨터에서 여세요" |
+| 배치 | Pass | 데스크톱 macOS \| Windows 나란히(순서 고정, 감지된 쪽 sage 윗줄 + "추천" 표 + Primary 버튼), 모바일은 쌓고 추천 카드가 먼저. 처음 열기 단계도 Windows 감지면 Windows 가 먼저 |
+| 가로 넘침 | Pass | 1440 · 375 모두 `scrollWidth == clientWidth` |
+| 라이트 · 다크 | Pass | 토큰만 사용. sage 윗줄 위 글자 · 도형은 `on-color`(두 테마 잉크) |
+| **버그 (기존)** | **Fail → 고침** | `cn()` 이 `text-label-m` 등을 색 클래스로 보고 지움 → CtaButton 글자가 16px, SectionHead 눈썹 글이 기본 크기였다. `lib/utils.ts` 에 크기 토큰 등록 |
+| 다운로드 버튼 연결 | Pass | 홈 상단바(데스크톱 · 모바일 서랍) · 히어로의 "다운로드" → `/download` (`DOWNLOAD_PATH`) |
+
+남은 것: 아직 GitHub 에 릴리스가 없어 `releases/latest/download/...` 링크는 지금 404. 앱 파일 이름에 버전이 들어가 릴리스마다 `APP_VERSION` 을 올려야 한다(앱 쪽 `artifactName` 을 버전 없이 바꾸면 해결).
+
+## 다국어 · 언어 선택 (ko / en, 2026-11-20)
+
+Figma: "Landing · Home" 상단바 `25:31` · "Landing · Download" 상단바 `40:19` 의 로그인 버튼 → `Language dropdown` 인스턴스(`44:139` · `44:356`). 컴포넌트 세트 `Language dropdown` `44:138`(State=Closed `44:116` · Open `44:121` · Segmented (mobile) `44:133`), 영어 참고 프레임 `44:361`. 모바일 상단바(`26:131` · `41:138`)에는 로그인 버튼이 없어 그대로 두었다(서랍은 Figma 에 그려져 있지 않음 → Segmented 변형으로 대신).
+
+| 항목 | 결과 | 비고 |
+|---|---|---|
+| 라우팅 | Pass | Next 16 문서(i18n 가이드 · proxy): `app/[lang]` + `generateStaticParams`(ko · en) + `dynamicParams=false`, `proxy.ts`(Middleware 의 새 이름)로 언어 없는 주소를 307. 빌드 결과 `/ko` `/en` `/ko/download` `/en/download` 모두 ●SSG, `ƒ Proxy` |
+| "/" 언어 고르기 | Pass | 쿠키 `NEXT_LOCALE` → `Accept-Language`(q 순, `en-US` → en) → ko. curl · Electron 으로 en / ko / fr(→ko) / `fr,en;q=0.5`(→en) / 쿠키가 Accept-Language 보다 우선 확인. 응답에 `Vary: Accept-Language, Cookie` |
+| `<html lang>` · 메타 | Pass | 언어별 title · description, `alternates` canonical + hreflang ko · en · x-default(ko) |
+| 사전 | Pass | 기능별 `i18n/{ko,en}.ts`, 타입(`HomeDictionary` · `DownloadDictionary`)이 같아 빠지면 타입 오류. 서버에서 한 언어만 읽어 props 로 넘김 — 빌드된 JS 청크에 두 언어 문구 모두 없음 |
+| /en 에 한글 | Pass | 1440 · 375 의 `/en` · `/en/download` 보이는 글(innerText)에 한글 0 (언어 목록의 "한국어" 만) |
+| 로그인 버튼 제거 | Pass | 데스크톱 상단바 → `LanguageMenu`, 모바일 서랍 → `LanguageToggle` |
+| 드롭다운 키보드 | Pass | ↓ 열고 지금 언어로 · ↓↓ 돌아감 · End · Esc 닫고 버튼으로 · 버튼에서 ↑ 마지막 항목 · Tab 으로 나가면 닫힘 · 바깥 누르면 닫힘 |
+| 언어 바꾸기 왕복 | Pass | `/ko/download#first-run` 에서 English → `/en/download#first-run`(앵커 유지), 쿠키 en → "/" 가 `/en`. 다시 한국어 → `/ko`, "/download" 가 `/ko/download` |
+| 가로 넘침 | Pass | 네 화면 1440 · 375 모두 `scrollWidth == clientWidth` |
+| 라이트 · 다크 | Pass | 토큰만 사용. 열린 목록은 `bg-surface`, 고른 항목 `bg-brand` + 체크, 모바일 고른 쪽 `bg-btn-ink` |
+
+남은 것: 배포 도메인이 없어 hreflang 이 `http://localhost:3000` 기준(`NEXT_PUBLIC_SITE_URL` 로 바꾼다). 언어를 바꾸면 루트 레이아웃(`<html lang>`)이 바뀌어 전체 페이지를 다시 불러온다(의도). 정적 내보내기(`output: "export"`)로 바꾸면 proxy 를 쓸 수 없다.

@@ -1,0 +1,13 @@
+.mark {
+  flex-shrink: 0;
+}
+.brand {
+  fill: var(--bg-brand);
+}
+.clay {
+  fill: var(--bg-accent);
+}
+/* 마디 고리 안쪽은 바탕색으로 비워 보이게 */
+.hollow {
+  fill: var(--bg-page);
+}

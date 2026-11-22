@@ -1,0 +1,24 @@
+/* 펼침 상자: 높이 0fr → 1fr + 투명도, 펼침 200ms · 접힘 150ms. 움직임 줄이기면 투명도만 */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--motion-exit) var(--motion-ease-out),
+    opacity var(--motion-exit) var(--motion-ease-out);
+}
+.panel[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition-duration: var(--motion-enter);
+}
+.panel > div {
+  min-height: 0;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panel[data-open="true"] {
+    transition: opacity var(--motion-exit) var(--motion-ease-out);
+  }
+}

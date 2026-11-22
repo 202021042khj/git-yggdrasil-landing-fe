@@ -1,0 +1,44 @@
+/* 다운로드 파일 한 줄 (Figma Download/FileRow: 데스크톱 Layout=Row, 모바일 Layout=Stack) */
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 3px solid var(--border-strong);
+  background: var(--bg-page);
+  padding: 16px;
+}
+
+.info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fileName {
+  word-break: break-all;
+  color: var(--text-secondary);
+}
+
+/* 모바일은 버튼이 줄 전체 폭이라 글자와 화살을 양끝으로 */
+.button {
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .row {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding-left: 24px;
+  }
+  .button {
+    justify-content: flex-start;
+  }
+}

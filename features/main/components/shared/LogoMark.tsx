@@ -1,6 +1,9 @@
 import { cn } from "@/lib/utils";
+import styles from "./LogoMark.module.css";
 
 interface LogoMarkProps {
+  /** px (가로 = 세로) */
+  size?: number;
   className?: string;
 }
 
@@ -12,8 +15,8 @@ const LEAVES: { x: number; y: number; r: number; tone: "brand" | "clay" }[] = [
 ];
 
 /** Yggdrasil 로고 (Y 모양: 왼쪽 팔 git 그래프 · 오른쪽 팔 나뭇가지 · 공통 줄기). 선은 글자 색, 잎은 sage·clay */
-const LogoMark = ({ className }: LogoMarkProps) => (
-  <svg viewBox="0 0 240 240" aria-hidden="true" className={cn("size-10", className)}>
+const LogoMark = ({ size = 40, className }: LogoMarkProps) => (
+  <svg viewBox="0 0 240 240" width={size} height={size} aria-hidden="true" className={cn(styles.mark, className)}>
     <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
       <path d="M120 212 L120 132 L56 44" strokeWidth="14" />
       <path d="M106 113 C92 126 62 130 50 114" strokeWidth="10" />
@@ -26,10 +29,10 @@ const LogoMark = ({ className }: LogoMarkProps) => (
         key={`${leaf.x}-${leaf.y}`}
         transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r})`}
         d={LEAF}
-        className={leaf.tone === "brand" ? "fill-brand" : "fill-clay"}
+        className={styles[leaf.tone]}
       />
     ))}
-    <g stroke="currentColor" strokeWidth="10" className="fill-page">
+    <g stroke="currentColor" strokeWidth="10" className={styles.hollow}>
       <circle cx="56" cy="44" r="13" />
       <circle cx="120" cy="170" r="13" />
     </g>

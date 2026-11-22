@@ -1,0 +1,12 @@
+.shape {
+  flex-shrink: 0;
+}
+.brand {
+  fill: var(--bg-brand);
+}
+.clay {
+  fill: var(--bg-accent);
+}
+.ink {
+  fill: var(--text-primary);
+}

@@ -1,0 +1,87 @@
+/* 모바일 상단바 + 펼치는 메뉴 서랍 */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  border-bottom: 3px solid var(--border-strong);
+  background: var(--bg-page);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* 햄버거 → X */
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  color: var(--text-primary);
+}
+.menuButton:focus-visible {
+  outline: 3px solid var(--text-brand);
+}
+
+.line {
+  width: 24px;
+  height: 3px;
+  background: currentColor;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.menuButton[aria-expanded="true"] .line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.menuButton[aria-expanded="true"] .line:nth-child(2) {
+  opacity: 0;
+}
+.menuButton[aria-expanded="true"] .line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* 서랍: 상단바(70px) 아래 화면 전체 */
+.drawer {
+  height: calc(100dvh - 70px);
+  overflow-y: auto;
+  border-top: 3px solid var(--border-strong);
+  background: var(--bg-page);
+  padding: 32px 20px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+.linkItem {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.link {
+  display: block;
+  padding-block: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.download {
+  justify-content: space-between;
+}

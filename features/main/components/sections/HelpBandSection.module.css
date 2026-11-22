@@ -1,0 +1,56 @@
+/* 도움 띠 (잉크): 왼쪽 글 · 버튼, 오른쪽 도형 그림. 모바일은 그림이 위 */
+.inner {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  min-width: 0;
+  color: var(--text-on-ink);
+}
+
+.description {
+  color: color-mix(in srgb, var(--text-on-ink) 80%, transparent);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.shapes {
+  flex-shrink: 0;
+  width: 168px;
+  height: 120px;
+}
+.brand {
+  fill: var(--bg-brand);
+}
+.clay {
+  fill: var(--bg-accent);
+}
+.onInk {
+  fill: var(--text-on-ink);
+}
+
+@media (min-width: 768px) {
+  .inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+  }
+  .shapes {
+    width: 280px;
+    height: 200px;
+  }
+}

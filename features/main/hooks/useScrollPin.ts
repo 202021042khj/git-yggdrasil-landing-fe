@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * 고정 스크롤(히어로 · 시작 가이드) 뼈대(참조 useScrollPin). pinned 인 동안 감싼 칸이 상단바 아래 붙은 뒤 스크롤한 거리(px)를
+ * 고정 스크롤(히어로) 뼈대(참조 useScrollPin). pinned 인 동안 감싼 칸이 상단바 아래 붙은 뒤 스크롤한 거리(px)를
  * 한 프레임에 한 번만 읽어 onRead 에 넘긴다. 끝나면 onReset. onRead · onReset 은 바뀌지 않는 함수로 넘긴다.
  */
 export const useScrollPin = <T extends HTMLElement>(

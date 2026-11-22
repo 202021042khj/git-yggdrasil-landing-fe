@@ -1,0 +1,75 @@
+/* 잉크 푸터: 로고 · 링크 · 저작권 */
+.footer {
+  width: 100%;
+  border-top: 3px solid var(--text-on-ink);
+  background: var(--bg-ink);
+  padding: 48px 20px;
+  color: var(--text-on-ink);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 로고 글자: 상단바 로고(LogoLockup)와 같은 Playfair 이탤릭 400 — 이탤릭은 로고에만 쓴다 */
+.name {
+  font-family: var(--family-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.spacer {
+  display: none;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+}
+
+.link:hover {
+  text-decoration-line: underline;
+}
+
+.copyright {
+  opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding-inline: 40px;
+  }
+  .inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
+  .name {
+    font-size: var(--type-display-m);
+    line-height: var(--type-display-m-line);
+    letter-spacing: var(--type-display-m-tracking);
+  }
+  .spacer {
+    display: block;
+    flex: 1;
+  }
+}
+@media (min-width: 1024px) {
+  .footer {
+    padding-inline: 80px;
+  }
+}

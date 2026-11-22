@@ -1,0 +1,105 @@
+/*
+ * 글자 스타일 (Figma Display / Heading / Body / Label / Code). 글꼴 · 크기 · 줄 간격 · 자간만 정한다.
+ * 색 · 굵기처럼 컴포넌트마다 다른 값은 그 컴포넌트의 .module.css 에 둔다.
+ * 쓰는 법: className={cn(text.label, styles.meta)}
+ */
+
+/* 영문 대문자 라벨: JetBrains Mono 12 / 500 / 넓은 자간 */
+.label {
+  font-family: var(--family-code);
+  font-size: var(--type-label-m);
+  line-height: var(--type-label-m-line);
+  letter-spacing: var(--type-label-m-tracking);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* 코드 · 명령 · 날짜: JetBrains Mono 14 */
+.code {
+  font-family: var(--family-code);
+  font-size: var(--type-code-m);
+  line-height: var(--type-code-m-line);
+}
+
+.bodyM {
+  font-size: var(--type-body-m);
+  line-height: var(--type-body-m-line);
+}
+.bodyL {
+  font-size: var(--type-body-l);
+  line-height: var(--type-body-l-line);
+}
+/* 모바일 body-m → 태블릿부터 body-l */
+.bodyResponsive {
+  font-size: var(--type-body-m);
+  line-height: var(--type-body-m-line);
+}
+
+/* 세리프 소제목 24 */
+.headingM {
+  font-family: var(--family-serif);
+  font-size: var(--type-heading-m);
+  line-height: var(--type-heading-m-line);
+  letter-spacing: var(--type-heading-m-tracking);
+}
+/* 모바일 heading-m(24) → 태블릿부터 heading-l(40) */
+.headingResponsive {
+  font-family: var(--family-serif);
+  font-size: var(--type-heading-m);
+  line-height: var(--type-heading-m-line);
+  letter-spacing: var(--type-heading-m-tracking);
+}
+
+/*
+ * 섹션 제목 = 히어로 제목과 같은 크기 (모바일 30 · 태블릿부터 56).
+ * 글꼴은 페이지 언어로 고른다: 한글은 Noto Serif KR 600 (Playfair 에 한글이 없다), 영문은 Playfair 500. 둘 다 정자체
+ */
+.title {
+  font-family: var(--family-display);
+  font-weight: 500;
+  font-size: var(--type-hero-sm);
+  line-height: var(--type-hero-sm-line);
+  letter-spacing: var(--type-hero-sm-tracking);
+  word-break: keep-all;
+}
+:lang(ko) .title {
+  font-family: var(--family-serif);
+  font-weight: 600;
+}
+
+/* Playfair 큰 제목 44 (정자체 — 이탤릭은 로고에만 쓴다) */
+.displayM {
+  font-family: var(--family-display);
+  font-size: var(--type-display-m);
+  line-height: var(--type-display-m-line);
+  letter-spacing: var(--type-display-m-tracking);
+}
+/* 모바일 display-m(44) → 태블릿부터 display-l(72) */
+.displayResponsive {
+  font-family: var(--family-display);
+  font-size: var(--type-display-m);
+  line-height: var(--type-display-m-line);
+  letter-spacing: var(--type-display-m-tracking);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--type-hero);
+    line-height: var(--type-hero-line);
+    letter-spacing: var(--type-hero-tracking);
+  }
+  .bodyResponsive {
+    font-size: var(--type-body-l);
+    line-height: var(--type-body-l-line);
+  }
+  .headingResponsive {
+    font-size: var(--type-heading-l);
+    line-height: var(--type-heading-l-line);
+    letter-spacing: var(--type-heading-l-tracking);
+  }
+  .displayResponsive {
+    font-size: var(--type-display-l);
+    line-height: var(--type-display-l-line);
+    letter-spacing: var(--type-display-l-tracking);
+  }
+}

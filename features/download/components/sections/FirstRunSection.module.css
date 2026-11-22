@@ -1,0 +1,68 @@
+/* 설치 후 실행 도움말 (잉크 띠): macOS | Windows 단계를 나란히 (모바일 · 태블릿은 쌓는다) */
+.guides {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 48px;
+}
+@media (min-width: 1024px) {
+  .guides {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 64px;
+  }
+}
+
+/* macOS 아래 "손상됨" 고급 안내 (접어 둔다) */
+.tip {
+  margin-top: 24px;
+  border: 3px solid color-mix(in srgb, var(--text-on-ink) 50%, transparent);
+}
+
+.tipButton {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 20px;
+  text-align: left;
+}
+.tipButton:focus-visible {
+  outline: 3px solid var(--text-brand-on-ink);
+  outline-offset: -3px;
+}
+
+.tipTag {
+  background: var(--bg-accent);
+  padding: 4px 8px;
+  color: var(--text-on-color);
+}
+
+.tipTitle {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text-on-ink);
+}
+
+.tipArrow {
+  color: var(--text-on-ink);
+}
+
+.tipBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 20px 20px;
+}
+
+.muted {
+  color: color-mix(in srgb, var(--text-on-ink) 80%, transparent);
+}
+
+@media (min-width: 768px) {
+  .tipButton {
+    padding: 24px;
+  }
+  .tipBody {
+    padding: 0 24px 24px;
+  }
+}

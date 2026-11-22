@@ -1,0 +1,77 @@
+/* 운영체제 카드 (Figma Card/macOS · Card/Windows) */
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--border-strong);
+  background: var(--bg-surface);
+}
+
+/* 윗줄: 도형 · 이름 · 추천 표. 이 컴퓨터의 운영체제면 sage */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px solid var(--border-strong);
+  background: var(--bg-page);
+  padding: 16px 20px;
+  color: var(--text-primary);
+}
+.recommended .head {
+  background: var(--bg-brand);
+  color: var(--text-on-color);
+}
+
+/* 도형은 글자와 같은 한 색 (sage 위에서는 두 테마 모두 잉크) */
+.head .shape * {
+  fill: var(--text-primary);
+}
+.recommended .head .shape * {
+  fill: var(--text-on-color);
+}
+
+.title {
+  font-weight: 500;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.tag {
+  white-space: nowrap;
+  background: var(--bg-ink);
+  padding: 4px 8px;
+  color: var(--text-on-ink);
+}
+/* 좁은 화면은 짧은 표 */
+.tagLong {
+  display: none;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 20px 24px;
+}
+
+.muted {
+  color: var(--text-secondary);
+}
+
+@media (min-width: 768px) {
+  .head {
+    gap: 16px;
+    padding: 24px 32px;
+  }
+  .tagLong {
+    display: inline;
+  }
+  .tagShort {
+    display: none;
+  }
+  .body {
+    padding: 32px;
+  }
+}

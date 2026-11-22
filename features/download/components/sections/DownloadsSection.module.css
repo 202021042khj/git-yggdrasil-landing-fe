@@ -1,0 +1,83 @@
+/* 다운로드 화면 첫 섹션: 제목 · 감지 칩 + 카드 격자 + Linux 한 줄 + GitHub Releases 링크 */
+.downloads {
+  width: 100%;
+  background: var(--bg-page);
+  padding: 48px 20px 64px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+/* 감지 결과 칩 */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 3px solid var(--border-strong);
+  background: var(--bg-surface);
+  padding: 8px 16px;
+  color: var(--text-primary);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.releases {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.releasesLink {
+  color: var(--text-brand);
+  text-underline-offset: 4px;
+}
+.releasesLink:hover {
+  text-decoration-line: underline;
+}
+.releasesLink:focus-visible {
+  outline: 3px solid var(--text-brand);
+}
+
+.note {
+  color: var(--text-secondary);
+}
+
+@media (min-width: 768px) {
+  .downloads {
+    padding: 96px 40px 96px;
+  }
+  .releases {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .downloads {
+    padding-inline: 80px;
+  }
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Linux 를 감지했을 때 Linux 카드는 두 칸을 다 쓴다 */
+  .wide {
+    grid-column: span 2 / span 2;
+  }
+}

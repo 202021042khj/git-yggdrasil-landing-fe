@@ -1,0 +1,43 @@
+/* 데스크톱 상단바 (높이 = --header-h 95px, 3px 선 포함) */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  border-bottom: 3px solid var(--border-strong);
+  background: var(--bg-page);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 16px 40px;
+}
+@media (min-width: 1024px) {
+  .bar {
+    padding-inline: 80px;
+  }
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.navLink {
+  display: inline-block;
+  white-space: nowrap;
+  color: var(--text-primary);
+  text-underline-offset: 4px;
+}
+.navLink:hover {
+  color: var(--text-brand);
+  text-decoration-line: underline;
+}
+
+.spacer {
+  flex: 1;
+}

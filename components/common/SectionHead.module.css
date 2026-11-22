@@ -1,0 +1,24 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--text-primary);
+}
+.onInk {
+  color: var(--text-on-ink);
+}
+
+/* 제목 위 작은 라벨 (예: 버전 "v0.1.2"). 없으면 안 그린다 */
+.eyebrow {
+  color: var(--text-brand);
+}
+.onInk .eyebrow {
+  color: var(--text-brand-on-ink);
+}
+
+.description {
+  color: var(--text-secondary);
+}
+.onInk .description {
+  color: color-mix(in srgb, var(--text-on-ink) 80%, transparent);
+}

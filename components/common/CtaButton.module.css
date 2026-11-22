@@ -1,0 +1,62 @@
+/* 랜딩 CTA: 모서리 0, 3px 잉크 선, 오른쪽 삼각형 화살 */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  border: 3px solid var(--border-strong);
+  padding: 15px 24px 15px 28px;
+  font-family: var(--family-code);
+  font-size: var(--type-label-m);
+  line-height: var(--type-label-m-line);
+  letter-spacing: var(--type-label-m-tracking);
+  font-weight: 500;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.button:focus-visible {
+  outline: 3px solid var(--text-brand);
+  outline-offset: 3px;
+}
+
+/* 주 버튼 = 브랜드 초록 (상단바 · 히어로 · 추천 파일의 다운로드) */
+.primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+.primary:hover {
+  background: var(--btn-primary-hover);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--text-primary);
+}
+.secondary:hover {
+  background: var(--bg-brand);
+  color: var(--text-on-color);
+}
+
+.brand {
+  background: var(--bg-brand);
+  color: var(--text-on-color);
+}
+.brand:hover {
+  background: var(--bg-accent);
+}
+
+/* 잉크 띠 위 종이 버튼: 두 테마에서 같은 색 */
+.paper {
+  border-color: var(--ygg-grey-900);
+  background: var(--ygg-beige-50);
+  color: var(--text-on-color);
+}
+.paper:hover {
+  background: var(--bg-accent);
+}
+
+.arrow {
+  width: 11px;
+  height: 12px;
+  flex-shrink: 0;
+  fill: currentColor;
+}

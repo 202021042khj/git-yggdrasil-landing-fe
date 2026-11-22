@@ -1,0 +1,115 @@
+/* 소식: 릴리스 노트 | 변경 기록 두 단 */
+.columns {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 48px;
+}
+@media (min-width: 768px) {
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.columnHead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 3px solid var(--border-strong);
+  padding-bottom: 16px;
+}
+
+.columnTitle {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.seeAll {
+  white-space: nowrap;
+  color: var(--text-brand);
+}
+.seeAll:hover,
+.inlineLink:hover {
+  text-decoration-line: underline;
+}
+
+.empty {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-block: 16px;
+  color: var(--text-secondary);
+}
+
+.inlineLink {
+  color: var(--text-brand);
+}
+
+.item {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* 한 줄: 릴리스는 링크, 변경 기록은 펼침 버튼 */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-block: 16px;
+}
+.row:focus-visible {
+  outline: 3px solid var(--text-brand);
+  outline-offset: 3px;
+}
+.release:hover {
+  background: var(--bg-page);
+}
+.change {
+  flex-wrap: wrap;
+  row-gap: 4px;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+}
+
+.version {
+  flex-shrink: 0;
+  background: var(--btn-primary-bg);
+  padding: 4px 8px;
+  color: var(--btn-primary-fg);
+}
+
+.hash {
+  flex-shrink: 0;
+  color: var(--text-brand);
+}
+
+.rowTitle {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-primary);
+}
+
+.date {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.caret {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  color: var(--text-primary);
+}
+
+/* 펼친 커밋 본문: 점(12) + 간격(16) 만큼 들인다 */
+.detail {
+  padding: 0 0 16px 28px;
+  color: var(--text-secondary);
+}
+
+.detailLink {
+  white-space: nowrap;
+  color: var(--text-brand);
+}
+.detailLink:hover {
+  text-decoration-line: underline;
+}

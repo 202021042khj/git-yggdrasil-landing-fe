@@ -1,0 +1,33 @@
+/* 로고 + "Yggdrasil / FOR GIT" 글자 */
+.lockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+}
+
+.words {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+/* 이탤릭은 사이트에서 로고 글자에만 쓴다 (브랜드 표시) */
+.name {
+  font-family: var(--family-display);
+  font-style: italic;
+  letter-spacing: -0.015em;
+  font-size: 20px;
+}
+.sm .name {
+  font-size: 16px;
+}
+
+.tag {
+  margin-top: 2px;
+  font-family: var(--family-code);
+  font-size: 6px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--text-brand);
+}

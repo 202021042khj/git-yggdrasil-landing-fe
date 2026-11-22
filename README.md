@@ -7,7 +7,8 @@ Personal Next.js App Router starter template — a scaffold to clone for new fro
 - [Next.js 16](https://nextjs.org) (App Router, Turbopack)
 - [React 19](https://react.dev)
 - [TypeScript](https://www.typescriptlang.org)
-- [Tailwind CSS v4](https://tailwindcss.com) (CSS-first config — no `tailwind.config.*`, tokens live in `app/globals.css`)
+- CSS Modules for the landing screens (`<Name>.module.css` next to each component, shared `styles/*.module.css`; see "스타일(CSS Modules)" in `docs/ARCHITECTURE.md`)
+- Design tokens as CSS variables in `app/globals.css` (light / dark); Tailwind CSS v4 is imported only for its CSS reset (preflight)
 
 > This is a recent/unusual Next.js version. Before writing Next.js-specific code (routing, config, etc.), check `node_modules/next/dist/docs/` — see `AGENTS.md`.
 
@@ -29,20 +30,23 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```
 app/
-├── layout.tsx        # root layout (fonts, <NotifyContainer />)
-├── globals.css        # Tailwind v4 tokens + design system tokens
-├── (main)/            # route group → "/", your real app starts here
-└── example/            # reference pages only, see below → "/example", "/example/[id]"
+├── globals.css        # design tokens (:root, dark mode) + Tailwind v4 theme for the template ui kit
+└── [lang]/            # 이 프로젝트: 언어 세그먼트 (ko · en)
+    ├── layout.tsx     # root layout (<html lang>, fonts, generateStaticParams)
+    ├── page.tsx       # "/ko" · "/en" 홈
+    └── download/      # "/ko/download" · "/en/download"
+proxy.ts               # "/" 등 언어 없는 주소 → 언어 주소 (Next 16 Proxy = 예전 Middleware)
 
 features/<feature>/    # one folder per feature: components/, hooks/, types.ts, constants.ts, index.ts
-└── main/              # "/" 랜딩 페이지 (Yggdrasil)
+├── main/              # 홈 랜딩 (Yggdrasil) — i18n/{ko,en}.ts 문구
+└── download/          # 다운로드 화면 — i18n/{ko,en}.ts 문구
 
 components/
 ├── ui/                # ported design system (Button, Dialog, Modal, Notify, Table, ...)
 └── common/            # shared, domain-agnostic primitives (Badge, AsyncBoundary, ...)
 
 hooks/                 # hooks shared by several features only
-lib/                   # pure helpers, no React (formatDate, cn())
+lib/                   # pure helpers, no React (i18n, site, github, detectPlatform, cn())
 ```
 
 `app/**/page.tsx` only places a feature's screen component. Outside a feature, import it only through `@/features/<feature>` (its `index.ts`) — ESLint blocks deep imports.
@@ -51,11 +55,20 @@ Full conventions (naming, Desktop/Mobile split, section modularization, theming 
 
 이 프로젝트는 khj-fe-template 를 복제해 시작했고, 예제(`app/example/`, `features/example/`)는 지웠다. 랜딩 전용 메모는 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) 의 "이 프로젝트에서" 를 본다.
 
-## Design system
+### 주소 (이 프로젝트)
 
-`components/ui/` is a design system ported from an internal admin template: Button, Dialog, AlertDialog, Popover, Tooltip, Command palette, Combobox, Modal/ConfirmModal, Notify (toast), Table/SortableTable, and a small icon set — Radix UI + shadcn "new-york" style underneath. `components.json` is set up so the shadcn CLI can add more (`npx shadcn add <name>`).
+| 주소 | 화면 |
+|---|---|
+| `/` | `proxy.ts` 가 언어 주소로 보낸다: `NEXT_LOCALE` 쿠키 → `Accept-Language` → 기본 `ko` |
+| `/ko` · `/en` | 홈 (`features/main`) |
+| `/ko/download` · `/en/download` | 다운로드 (`features/download`) |
+| `/download` 등 언어 없는 주소 | 같은 규칙으로 `/<언어>/download` 로 |
 
-Dark mode is automatic (`prefers-color-scheme`, no manual toggle). Always use semantic tokens (`bg-background`, `text-foreground`, `text-muted-foreground`, `border-border`, ...) instead of hardcoded Tailwind grays so components stay theme-aware — see the Theming section in `docs/ARCHITECTURE.md` for the full rationale and a known gap in the ported kit's own color palette.
+모든 페이지는 빌드 때 두 언어 모두 정적으로 만든다. 문구는 각 기능의 `i18n/{ko,en}.ts` (구조는 ARCHITECTURE.md "다국어(i18n)"). 배포 주소는 `NEXT_PUBLIC_SITE_URL` 로 넘긴다(hreflang · canonical).
+
+## Styling
+
+Every component styles itself with a `<Name>.module.css` next to it, using the CSS variables in `app/globals.css` (they switch automatically with `prefers-color-scheme`). Shared frames and text styles live in `styles/*.module.css`. See "스타일(CSS Modules)" in `docs/ARCHITECTURE.md`.
 
 ## Learn more
 

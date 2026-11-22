@@ -1,38 +1,29 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import { type UseMobileMenuResult, useMobileMenu } from "@/hooks/useMobileMenu";
+import type { Locale } from "@/lib/i18n";
+import type { HomeDictionary } from "../types";
 
-export interface UseHomeLogicResult {
-  isMenuOpen: boolean;
-  toggleMenu: () => void;
-  closeMenu: () => void;
+export interface UseHomeLogicParams {
+  lang: Locale;
+  /** 서버(app/[lang]/page.tsx)가 읽어 넘긴 이 언어의 문구 */
+  dict: HomeDictionary;
+}
+
+export interface UseHomeLogicResult extends UseMobileMenuResult {
+  lang: Locale;
+  t: HomeDictionary;
   /** 펼친 변경 기록(hash). 한 번에 하나만 */
   openChange: string | null;
   toggleChange: (hash: string) => void;
 }
 
-export const useHomeLogic = (): UseHomeLogicResult => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = useCallback(() => setIsMenuOpen((open) => !open), []);
-  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+export const useHomeLogic = ({ lang, dict }: UseHomeLogicParams): UseHomeLogicResult => {
+  // 모바일 메뉴(Esc 로 닫기 · 본문 스크롤 막기)는 다운로드 화면과 같이 쓰는 훅
+  const menu = useMobileMenu();
   const [openChange, setOpenChange] = useState<string | null>(null);
   const toggleChange = useCallback((hash: string) => setOpenChange((open) => (open === hash ? null : hash)), []);
 
-  // 모바일 메뉴: Esc 로 닫고, 열려 있는 동안 본문 스크롤을 막는다
-  useEffect(() => {
-    if (!isMenuOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsMenuOpen(false);
-    };
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [isMenuOpen]);
-
-  return { isMenuOpen, toggleMenu, closeMenu, openChange, toggleChange };
+  return { ...menu, lang, t: dict, openChange, toggleChange };
 };

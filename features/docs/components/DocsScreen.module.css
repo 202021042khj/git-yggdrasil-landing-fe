@@ -1,0 +1,221 @@
+/* 문서 화면: 목차(데스크톱은 왼쪽에 붙어 따라옴, 모바일은 위) + 본문 */
+
+.desktopHeader {
+  display: none;
+}
+.mobileHeader {
+  display: contents;
+}
+@media (min-width: 768px) {
+  .desktopHeader {
+    display: contents;
+  }
+  .mobileHeader {
+    display: none;
+  }
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  background: var(--bg-page);
+  padding: 48px 20px 64px;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+/* ---------- 목차 ---------- */
+.toc {
+  border: 3px solid var(--border-strong);
+  background: var(--brand-field);
+  padding: 20px 24px;
+}
+
+.tocLabel {
+  margin-bottom: 12px;
+  color: var(--text-brand);
+}
+
+.tocList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tocSection {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tocTopic {
+  display: block;
+  padding-left: 12px;
+  color: var(--text-secondary);
+}
+
+.tocSection:hover,
+.tocTopic:hover {
+  color: var(--text-brand);
+  text-decoration-line: underline;
+}
+
+/* ---------- 본문 ---------- */
+.article {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 48px;
+  min-width: 0;
+  max-width: 760px;
+  color: var(--text-primary);
+}
+
+/* 큰 주제마다 위 3px 선 (섹션 경계와 같은 선) */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  border-top: 3px solid var(--border-strong);
+  padding-top: 32px;
+}
+
+.sectionTitle {
+  font-weight: 700;
+}
+
+.topic {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topicTitle {
+  font-weight: 600;
+}
+
+.p {
+  color: var(--text-secondary);
+}
+
+.list,
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 22px;
+  color: var(--text-secondary);
+}
+.list {
+  list-style: square;
+}
+.steps {
+  list-style: decimal;
+}
+.list li::marker,
+.steps li::marker {
+  color: var(--text-brand);
+}
+
+/* 터미널 명령 (잉크 상자) */
+.command {
+  overflow-x: auto;
+  background: var(--bg-ink);
+  padding: 12px 16px;
+  color: var(--text-on-ink);
+  white-space: pre;
+}
+.prompt {
+  opacity: 0.6;
+}
+
+/* 주의 · 알아 둘 것: 왼쪽 굵은 선 */
+.note {
+  border-left: 6px solid var(--bg-accent);
+  background: var(--bg-surface);
+  padding: 12px 16px;
+  color: var(--text-primary);
+}
+
+.inlineCode {
+  font-family: var(--family-code);
+  font-size: 0.9em;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 0 4px;
+  color: var(--text-primary);
+}
+
+.kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  margin-inline: 2px;
+  border: 2px solid var(--border-strong);
+  border-bottom-width: 3px;
+  background: var(--bg-surface);
+  padding: 0 6px;
+  font-family: var(--family-code);
+  font-size: 0.85em;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+/* 단축키 표 */
+.keys {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-secondary);
+}
+.keys td {
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 0;
+  vertical-align: middle;
+}
+.keysCell {
+  width: 45%;
+  white-space: nowrap;
+}
+
+.help {
+  border-top: 3px solid var(--border-strong);
+  padding-top: 32px;
+  color: var(--text-secondary);
+}
+
+.link {
+  color: var(--text-brand);
+}
+.link:hover {
+  text-decoration-line: underline;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 96px 40px 128px;
+  }
+}
+@media (min-width: 1024px) {
+  .main {
+    padding-inline: 80px;
+  }
+  .layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 64px;
+  }
+  /* 데스크톱: 목차가 상단바 아래에 붙어 따라온다 */
+  .toc {
+    position: sticky;
+    top: calc(var(--header-h) + 24px);
+    flex-shrink: 0;
+    width: 260px;
+    max-height: calc(100svh - var(--header-h) - 48px);
+    overflow-y: auto;
+  }
+}

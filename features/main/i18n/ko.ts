@@ -3,7 +3,7 @@ import type { HomeCopy } from "../types";
 /** 홈 · 공통 틀 문구 (한국어, 기본 언어) */
 const ko: HomeCopy = {
   metadata: {
-    title: "Yggdrasil — Yggdrasil로 git을 쉽게 관리하세요",
+    title: "Yggdrasil for Git",
     description:
       "커밋 그래프를 직접 끌어 놓아 git 히스토리를 고치는 데스크톱 앱. Yggdrasil로 git을 쉽게 관리하세요.",
   },

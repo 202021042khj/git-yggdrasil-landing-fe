@@ -3,7 +3,7 @@ import type { HomeCopy } from "../types";
 /** Home + shared chrome copy (English) */
 const en: HomeCopy = {
   metadata: {
-    title: "Yggdrasil — Manage git with ease",
+    title: "Yggdrasil for Git",
     description:
       "A desktop app that lets you fix git history by dragging and dropping on the commit graph. Manage git with ease, in Yggdrasil.",
   },

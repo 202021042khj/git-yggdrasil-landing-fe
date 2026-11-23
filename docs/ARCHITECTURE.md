@@ -151,6 +151,7 @@ khj-fe-template 의 규칙을 그대로 따르고, 다른 점만 적는다.
   - 토픽 id 는 홈 기능 줄의 "자세히 보기" 가 가리킨다(`features/main/constants.ts` `FEATURES[].docs`: drag · menu · diff · conflict · rebase). 도움 띠의 "문서 보기" 도 이 화면으로.
   - 본문은 한 벌만 그리고(앵커가 겹치지 않게) 상단바만 데스크톱 / 모바일로 가른다. 데스크톱은 목차가 왼쪽에 붙어 따라온다.
   - 경로 상수 `DOCS_PATH` 는 `features/main/constants.ts` 에 둔다(main ↔ docs 가 서로 import 하지 않도록).
+- **검색엔진용**: `app/sitemap.ts`(→ /sitemap.xml, 화면마다 ko · en 주소와 hreflang) · `app/robots.ts`(→ /robots.txt). 화면 목록은 `lib/site.ts` 의 `SITE_PATHS`, 주소는 `NEXT_PUBLIC_SITE_URL` — 새 화면을 만들면 `SITE_PATHS` 에 더한다.
 - **둘 이상의 기능이 쓰는 것**: `components/common/Shape.tsx`(도형, `features/main/components/shared` 에서 옮김), `hooks/useMobileMenu.ts`(서랍 메뉴 · Esc · 스크롤 막기), `lib/detectPlatform.ts`(UA Client Hints → UA → WebGL 순으로 OS · CPU 추정). 연필 나무는 전역 클래스 `.pencil-tree`(globals.css, 홈 히어로).
 - **`components/common/`** 에 더한 것: `CtaButton`(`href` 를 주면 링크, "/..." 는 `next/link`. 없으면 더미 버튼) · `SectionHead` · `Collapse`(펼침 상자) · `LanguageMenu`(상단바 언어 드롭다운) · `LanguageToggle`(모바일 서랍의 두 언어 버튼). 기능과 무관한 조각이다. 둘이 같이 쓰는 `hooks/useLocaleSwitch.ts`(다른 언어 주소 · 쿠키 기억 · #앵커 유지).
 - **스타일은 CSS Modules** — 템플릿은 Tailwind 클래스를 `className` 에 직접 쓰지만, 이 프로젝트의 화면 코드(`features/**`, `components/common/` 의 랜딩 조각)는 컴포넌트 옆 `<Name>.module.css` 에 일반 CSS 로 쓴다. 아래 "스타일(CSS Modules)" 절.

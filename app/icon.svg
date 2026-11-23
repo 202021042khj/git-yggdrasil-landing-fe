@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="824" height="824" viewBox="100 100 824 824">
+  <rect x="100" y="100" width="824" height="824" rx="184" fill="#1C1B19"/>
+  <rect x="100" y="100" width="824" height="824" rx="184" fill="none" stroke="#33312D" stroke-width="6"/>
+  <!-- Y 마크: 왼쪽 git 그래프 · 오른쪽 나뭇가지 · 공통 줄기 -->
+  <g transform="translate(152 152) scale(3)"><g fill="none" stroke="#FBF7F1" stroke-linecap="round" stroke-linejoin="round">
+<path d="M120 212 L120 132 L56 44" stroke-width="14"/>
+<path d="M106 113 C92 126 62 130 50 114" stroke-width="10"/>
+<path d="M120 132 C150 118 172 86 182 50" stroke-width="14"/>
+<path d="M162 96 C176 92 188 92 198 98" stroke-width="10"/>
+<path d="M98 230 C104 220 112 214 120 212 C128 214 136 220 142 230" stroke-width="10"/>
+</g>
+<path transform="translate(182 50) rotate(-80)" d="M0 0 C7 -12 24 -13 36 0 C24 13 7 12 0 0 Z" fill="#A2C9AB"/>
+<path transform="translate(198 98) rotate(-20)" d="M0 0 C7 -12 24 -13 36 0 C24 13 7 12 0 0 Z" fill="#84B590"/>
+<g stroke="#FBF7F1" stroke-width="10" fill="#1C1B19"><circle cx="56" cy="44" r="13"/><circle cx="120" cy="170" r="13"/></g>
+<g fill="#FBF7F1"><circle cx="82" cy="80" r="12"/><circle cx="50" cy="114" r="11"/></g></g>
+</svg>

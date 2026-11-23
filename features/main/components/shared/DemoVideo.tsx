@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { mediaSrc } from "../../constants";
 import type { DemoVideoCopy } from "../../types";
+import type { Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import styles from "./DemoVideo.module.css";
 
 interface DemoVideoProps {
+  lang: Locale;
   copy: DemoVideoCopy;
   className?: string;
 }
@@ -15,7 +18,7 @@ interface DemoVideoProps {
  * - prefers-reduced-motion 이면 자동 재생하지 않고 포스터 + 재생 버튼을 보여 준다.
  * - Desktop/Mobile 트리가 둘 다 마운트되므로 실제로 보이는 쪽만 재생한다.
  */
-const DemoVideo = ({ copy, className }: DemoVideoProps) => {
+const DemoVideo = ({ lang, copy, className }: DemoVideoProps) => {
   const ref = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -44,8 +47,8 @@ const DemoVideo = ({ copy, className }: DemoVideoProps) => {
       <video
         ref={ref}
         className={styles.video}
-        src="/media/demo.mp4"
-        poster="/media/poster.png"
+        src={mediaSrc(lang, "demo.mp4")}
+        poster={mediaSrc(lang, "poster.png")}
         width={1920}
         height={1200}
         muted

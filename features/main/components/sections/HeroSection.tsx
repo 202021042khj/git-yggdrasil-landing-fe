@@ -52,7 +52,7 @@ const HeroSection = ({ lang, t, idPrefix = "", pinnable = false }: HeroSectionPr
           </div>
           <div className={styles.rise}>
             <figure className={styles.window}>
-              <DemoVideo copy={t.demoVideo} />
+              <DemoVideo lang={lang} copy={t.demoVideo} />
               <figcaption className={styles.caption}>
                 <Shape kind="triangle" size={10} />
                 {t.hero.videoCaption}

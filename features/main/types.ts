@@ -14,7 +14,6 @@ export type NavTarget = "features" | "news" | "docs";
 export interface Feature {
   id: FeatureId;
   file: string;
-  src: string;
   shape: ShapeKind;
   /** 문서(features/docs)의 토픽 앵커 — "자세히 보기" 가 가리킨다 */
   docs: string;

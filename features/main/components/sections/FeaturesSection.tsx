@@ -2,7 +2,7 @@ import Image from "next/image";
 import SectionHead from "@/components/common/SectionHead";
 import CtaButton from "@/components/common/CtaButton";
 import Shape from "@/components/common/Shape";
-import { DOCS_PATH, FEATURES, SHOT_HEIGHT, SHOT_WIDTH } from "../../constants";
+import { DOCS_PATH, FEATURES, mediaSrc, SHOT_HEIGHT, SHOT_WIDTH } from "../../constants";
 import type { HomeDictionary } from "../../types";
 import { type Locale, localePath } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -43,7 +43,7 @@ const FeaturesSection = ({ lang, t, idPrefix = "" }: FeaturesSectionProps) => (
                   </span>
                 </div>
                 <Image
-                  src={feature.src}
+                  src={mediaSrc(lang, feature.file)}
                   alt={t.features[feature.id].alt}
                   width={SHOT_WIDTH}
                   height={SHOT_HEIGHT}

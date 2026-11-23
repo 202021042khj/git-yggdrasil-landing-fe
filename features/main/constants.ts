@@ -29,15 +29,20 @@ export const MOBILE_ID_PREFIX = "m-";
 /** 상단 메뉴 순서 (이름은 사전의 chrome.nav) */
 export const NAV_TARGETS: NavTarget[] = ["features", "news", "docs"];
 
+/**
+ * 앱 화면 캡처 · 시연 영상 주소. 한국어는 /media/<file>, 영어는 영어 화면으로 찍은 같은 이름의 /media/en/<file>.
+ */
+export const mediaSrc = (lang: Locale, file: string): string => (lang === "en" ? `/media/en/${file}` : `/media/${file}`);
+
 export const SHOT_WIDTH = 2732;
 export const SHOT_HEIGHT = 1708;
 
 export const FEATURES: Feature[] = [
-  { id: "drag", file: "shot-drag.png", src: "/media/shot-drag.png", shape: "circle", docs: "drag" },
-  { id: "menu", file: "shot-menu.png", src: "/media/shot-menu.png", shape: "square", docs: "menu" },
-  { id: "diff", file: "shot-detail-diff.png", src: "/media/shot-detail-diff.png", shape: "triangle", docs: "diff" },
-  { id: "conflict", file: "shot-conflict.png", src: "/media/shot-conflict.png", shape: "circle", docs: "conflict" },
-  { id: "rebase", file: "shot-rebase.png", src: "/media/shot-rebase.png", shape: "square", docs: "rebase" },
+  { id: "drag", file: "shot-drag.png", shape: "circle", docs: "drag" },
+  { id: "menu", file: "shot-menu.png", shape: "square", docs: "menu" },
+  { id: "diff", file: "shot-detail-diff.png", shape: "triangle", docs: "diff" },
+  { id: "conflict", file: "shot-conflict.png", shape: "circle", docs: "conflict" },
+  { id: "rebase", file: "shot-rebase.png", shape: "square", docs: "rebase" },
 ];
 
 // ---------- 모션 (참조 페이지 값) ----------
